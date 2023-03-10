@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Validation</title>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="index.css">
@@ -16,8 +17,8 @@
         .slider {
           -webkit-appearance: none;
           width: 100%;
-          height: 25px;
-          background: #d3d3d3;
+          height: 10px;
+          background: white;
           outline: none;
           opacity: 0.7;
           -webkit-transition: .2s;
@@ -32,14 +33,14 @@
           -webkit-appearance: none;
           appearance: none;
           width: 25px;
-          height: 25px;
+          height: 10px;
           background: #4286F5;
           cursor: pointer;
         }
         
         .slider::-moz-range-thumb {
           width: 25px;
-          height: 25px;
+          height: 10px;
           background: #4286F5;
           cursor: pointer;
         }
@@ -56,7 +57,7 @@
         <div class="upper_box">
         
             <div class="left_box">
-                <button><i class="fa fa-plus"></i> Add Appointment</button>
+                <button id="add_btn"><i class="fa fa-plus"></i> Add Appointment</button>
                 <button><i class="fa fa-eraser"></i> Clear Filtering</button>
             </div>
             <div class="right_box">
@@ -64,119 +65,108 @@
             </div>
         </div>
         <div class="table_box">
-            <table border="1px">
+            <table  border="1px">
                 <tr>   
-                    
+                    <th>Sr.no</th>
                     <th>Name</th>
                     <th>E-mail</th>
                     <th>Phone No</th>
-                    <th>Date</th>
-                    <th>Time</th>
                     <th>Birthdate</th>
+                    <th>Time</th>
+                    
                     <th>color</th>
                     <th>Age</th>
                     <!-- check box -->
-                    <th>Types of Item</th>
+                    <th>Body parts</th>
                     <!-- radio button -->
                     <th>Payment type</th>
                     <th>Photo</th>
                     <th>Action</th>
                 </tr>    
-                <tr>
-                    <td>hello world</td>
-                    <td>hello world</td>
-                    <td>hello world</td>
-                    <td>hello world</td>
-                    <td>hello world</td>
-                    <td>hello world</td>
-                    <td>hello world</td>
-                    <td>hello world</td>
-                    <td>hello world</td>
-                    <td>hello world</td>
-                    <td>hello world</td>
-                    <td>hello world</td>
-                    <td><button><i class="fa fa-eye"></i></button>
-                        <button style=" background-color: #EE534F;"><i class="fa fa-trash"></i></button>
-                    </td>           
-                </tr>
+                <tbody id="table_data">
+
+                </tbody>
             </table>
         </div>
-        <form autocomplete="on">    
+        <form id="register_form" autocomplete="on">    
         <div class="model">
+            <i class="fa fa-times-circle close-icon"></i>
             <div class="left_model">
                 <div class="img_box">
-                    <img src="./avtar.png" alt="your photo" width="200" height="130">
+                    <img src="./avtar.png" id="profile" alt="your photo" width="200" height="130">
                     <i class="fa fa-plus"></i>
-                    <input type="file">
+                    <input type="file" id="img">
                 </div>
             </div>
             <div class="right_model">
                 <div class="input_box">
-                    <label for="name">Name:</label>
-                    <input type="text" name="name" id="">
+                    <label for="name"><b>Name:</b></label>
+                    <input type="text" name="name" id="nm" style=" margin-left:112px ;">
                 </div>
                 <div class="input_box">
-                    <label for="email">E-mail:</label>
-                    <input type="email" id="mail"  name="email">
+                    <label for="email"><b>E-mail:</b></label>
+                    <input type="email" id="mail"  name="email" style=" margin-left:110px ;">
                 </div>
                 <div class="input_box">
-                    <label for="no">Phone no:</label>
-                    <input type="tel" id="no"  name="phone no" maxlength="10">
+                    <label for="no"><b>Phone no:</b></label>
+                    <input type="tel" id="no"  name="phone no" maxlength="10"style=" margin-left:85px ;">
                 </div>
                 <div class="input_box">
-                    <label for="date">Birth date:</label>
-                    <input type="date" id="b_date"  name="date">
+                    <label for="date"><b>Birth date:</b></label>
+                    <input type="date" id="b_date"  name="date" style=" margin-left:80px;">
                 </div>
                 <div class="input_box">
-                    <label for="time">Appointment Time:</label>
+                    <label for="time"><b>Appointment Time:</b></label>
                     <input type="time" id="atime"  name="atime">
                 </div>
-                <div class="input_box">
-                    <label for="color">Favorite color:</label>
+                <div class="input_box1" style=" padding-left: 7px;">
+                    <label for="color"><b>Eye color:</b></label>
                     <select id="color" name="favcolor">
-                        <option value="red">Red</option>
-                        <option value="blue">Blue</option>
-                        <option value="yellow">Yellow</option>
-                        <option value="black">Black</option>
-                        <option value="white">White</option>
-                        <option value="gray">Gray</option>
+                        <option value="Aqua Marine">Aqua Marine</option>
+                        <option value="Hony">Hony</option>
+                        <option value="Hazel">Hazel</option>
+                        <option value="Brown">Brown</option>
+                        <option value="Satin Gray">Satin Gray</option>
+                        <option value="Sugar Gray">Sugar Gray</option>    
                     </select>
-                <div class="input_box">
-                    <label for="payment">Payment method:</label><br>
-                    <input type="radio" id="case"  name="payment1">
+                    <div class="input_box1">
+                        <label for="body"><b>Body Part: </b></label>
+                        <input type="checkbox" id="part1" name="part-1" value="ear">
+                        <label for="ear"> Ear </label>
+                        <input type="checkbox" id="part2" name="part-2" value="nose">
+                        <label for="nose"> Nose </label>
+                        <input type="checkbox" id="part3" name="part-3" value="Neck">
+                        <label for="neck"> Neck </label>
+                    </div>    
+                <div class="input_box1" >
+                    <label for="payment"><b>Payment method:</b></label><br>
+                    <input type="radio" id="case"  name="payment">
                     <label for="COD">Case on delivery</label><br>
-                    <input type="radio" id="mster"  name="payment2">
+                    <input type="radio" id="master"  name="payment">
                     <label for="mcard"><img src="./master.png" alt="master" height="30" width="50"></label><br>
-                    <input type="radio" id="visa"  name="payment3">
+                    <input type="radio" id="visa"  name="payment">
                     <label for="vcard"><img src="./visa.png" alt="master" height="30" width="50"></label><br>
-                    <input type="radio" id="pal"  name="payment4">
+                    <input type="radio" id="pal"  name="payment">
                     <label for="paypal"><img src="./paypal.png" alt="master" height="50" width="70"></label>
                 </div>
                 <div class="slidecontainer">
                     <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-                    <p>Age: <span id="demo"></span></p>
+                    <span><b>Age: </b><span class="demo"></span></span>
+                    <input type="submit" id="submit" value="Register" name="submit" style="margin-left: 200px;border: none;background-color: #4286F5;padding:2px;color:white;border-radius:5px;">
+                    <input type="reset" id="reset" name="reset" style="margin-left: 50px;border: none;outline: none;background-color:  #EE534F;padding:2px;color:white;border-radius:5px;">
+                    <button disabled="disabled" id="btn" style="margin-left: 50px;border: none;outline: none;background-color: #4286F5;padding:2px;color:white;border-radius:5px;">Update</button>
+                
                   </div>
-                  <div class="input_box">
-                    <label for="body">Body Part: </label>
-                    <input type="checkbox" id="part1" name="part-1" value="ear">
-                    <label for="ear"> Ear </label>
-                    <input type="checkbox" id="part2" name="part-2" value="nose">
-                    <label for="nose"> Nose </label>
-                    <input type="checkbox" id="part3" name="part-3" value="Neck">
-                    <label for="neck"> Neck </label>
-                    <input type="submit" id="submit" name="submit" style="margin-left: 50px;border: none;outline: none;background-color: #4286F5;padding:2px;color:white">
-                    <input type="reset" id="reset" name="reset" style="margin-left: 30px;border: none;outline: none;background-color:  #EE534F;padding:2px;color:white">
-                </div>  
                   <script>
                   var slider = document.getElementById("myRange");
-                  var output = document.getElementById("demo");
+                  var output = document.querySelector(".demo");
                   output.innerHTML = slider.value;
                   
                   slider.oninput = function() {
                     output.innerHTML = this.value;
                   }
                   </script>
-
+                 
                 </div>
             </div>
         </div>
