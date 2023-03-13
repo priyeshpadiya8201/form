@@ -1,5 +1,6 @@
 //start for crud opretion
-
+var form = document.querySelector("#register_form");
+var input = form.querySelectorAll("INPUT");
 var addBtn = document.querySelector("#add_btn");
 var model= document.querySelector(".model");
 var closeBtn = document.querySelector(".close-icon")
@@ -10,25 +11,33 @@ addBtn.onclick = function()
 closeBtn.addEventListener("click", ()=>
 {
     model.classList.remove("active");
+    var i;
+    for(i=0;i<input.length;i++)
+    {
+        input[i].value = " ";
+    }
 })
 
 //start global variable
 var userData = [];
+var profile_pic =document.querySelector("#profile");
+var uploadimg = document.querySelector("#img");
 var U_name = document.querySelector("#nm");
 var email = document.querySelector("#mail");
 var phone = document.querySelector("#no");
 var birth = document.querySelector("#b_date");
 var time = document.querySelector("#atime");
 var co_select =document.querySelector("#color");
-var cod = document.querySelector("#case");
-var master_card = document.querySelector("#master");
-var visa_card = document.querySelector("#visa");
-var pay_pal = document.querySelector("#pal");
 var body_part1 = document.querySelector("#part1");
 var body_part2 = document.querySelector("#part2");
 var body_part3 = document.querySelector("#part3");
-var age = document.getElementsByClassName("demo");
+var cod = document.querySelector("#method1");
+var master_card = document.querySelector("#method2");
+var visa_card = document.querySelector("#method3");
+var pay_pal = document.querySelector("#method4");
+var age = document.getElementsByClassName(".myRange");
 var register = document.querySelector("#submit");
+var updatebtn = document.querySelector("#btn");
 var imgurl;
 var form = document.querySelector("#register_form");
 //end global variable
@@ -63,7 +72,7 @@ function registrationData()
         case : cod.value,
         master : master_card.value,
         visa : visa_card.value,
-        pay_pal : pay_pal.value,
+        pal : pay_pal.value,
         demo : age.value,
         img : imgurl == undefined ? "./avtar.png": imgurl
         
@@ -72,7 +81,7 @@ function registrationData()
     });
     var userString = JSON .stringify(userData);
     localStorage.setItem("userData",userString);
-    swal("Good job!", "Appointment Book", "success");
+    swal("Appointment Book!","", "success");
 }
 
 //store data in localstorage
@@ -91,13 +100,10 @@ const local = ()=>
                     <td>${data.b_date}</td>
                     <td>${data.atime}</td>
                     <td>${data.color}</td>
-                    <td>${data.part1}</td>
-                    <td>${data.part2}</td>
-                    <td>${data.case}</td>
-                    <td>${data.master}</td>
-                    <td>${data.pay_pal}</td>
                     <td>${data.demo}</td>
-                    <td><img src="${data.img}" width="40" height="40"></td>
+                    <td>${data.part1},${data.part2},<br>,${data.part3}</td>
+                    <td>${data.case},${data.master},${data.visa},${data.pal}</td>
+                    <td><img src="${data.img}" width="40" height="60"></td>
                     
                     <td><button class="edit_btn"><i class="fa fa-eye"></i></button>
                         <button class="del_btn" style=" background-color: #EE534F;"><i class="fa fa-trash"></i></button>
@@ -116,7 +122,7 @@ const local = ()=>
             var tr = this.parentElement.parentElement;
             var id = tr.getAttribute("index");
             swal({
-                title: "Are you sure?",
+                title: "Are you sure for delete Record?",
                 text: "Once deleted, you will not be able to recover this file!",
                 icon: "warning",
                 buttons: true,
@@ -144,23 +150,82 @@ const local = ()=>
     {
         editBtn[i].onclick = function()
         {
-        var tr = this.parentElement.parentElement;
-        var td = tr.getElementsByTagName("TD");
-        var index = tr.getAttribute("index");
-        // var imgtag = td[1].getElementsByTagName("IMG");
-        // var profile_pic = imgtag[0].src;
-        var name = td[1].innerHTML;
-        var mail = td[2].innerHTML;
-        
+            var tr = this.parentElement.parentElement;
+            var td = tr.getElementsByTagName("TD");                                         
+            // var index = tr.getAttribute("index");      
+            var name = td[1].innerHTML;
+            var mail = td[2].innerHTML;
+            var no = td[3].innerHTML;
+            var b_date= td[4].innerHTML
+            var atime = td[5].innerHTML;
+            var color = td[6].innerHTML;
+            var part1 = td[7].innerHTML;
+            var part2 = td[7].innerHTML;
+            var part3 = td[7].innerHTML;
+            var Case = td[8].innerHTML;
+            var master = td[8].innerHTML;
+            var visa = td[8].innerHTML;
+            var pal = td[8].innerHTML;
+            var demo = td[9].innerHTML;
+            var imgtag = td[10].getElementsByTagName("IMG")
+            var profilePic = imgtag[0].src;
+
+            addBtn.click();
+            register.disabled = true;
+            btn.disabled = false;
+
+
+            U_name.value = name;
+            email.value= mail;
+            phone.value=no;
+            birth.value=b_date;
+            time.value=atime;
+            co_select.value=color;
+            body_part1.value=part1;
+            body_part2.value=part2;
+            body_part3.value=part3;
+            cod.value=Case;
+            master_card.value=master;
+            visa_card.value=visa;
+            pay_pal.value=pal;
+            age.value=demo;
+            profile_pic.src=profilePic;
+
+             updatebtn.onclick = function(e)
+            {
+            userData[index] = 
+            {
+                nm : U_name.value,
+                mail : email.value,
+                no : phone.value,
+                b_date : birth.value,
+                atime : time.value,
+                color : co_select.value,
+                part1 : body_part1.value,
+                part2 : body_part2.value,
+                part3 : body_part3.value,
+                case : cod.value,
+                master : master_card.value,
+                visa : visa_card.value,
+                pal : pay_pal.value,
+                demo : age.value,
+                profilePic : uploadimg.value == "" ? profile_pic.src : imgurl
+            }
+            localStorage.setItem("userData",JSON.stringify(userData));
+            }
         }
+    
     }
+    
 }
 local();
+numberValidation();
+emailValidation();
+numberValidation();
 
 //image upload
 
-var profile_pic =document.querySelector("#profile");
-var uploadimg = document.querySelector("#img");
+
 uploadimg.onchange = function()
 {
     if(uploadimg.files[0].size < 5000000)
@@ -182,3 +247,52 @@ uploadimg.onchange = function()
 
 }
 
+function nameValidation(){
+    var name = document.getElementById('nm').value;
+    if(name=="")
+    {
+         document.getElementById("nm").innerHTML;
+         return false;
+    }      
+    if(isNan(name))
+    {
+        document.getElementById("nm").innerHTML="only alphabetic value enter";
+        return false;
+
+    }
+    if(name.length)
+    {
+
+    }
+}
+
+ function emailValidation() 
+ {
+  var x = document.forms["myForm"]["email"].value;
+ 
+  var atpos = x.indexOf("@");
+  var dotpos = x.lastIndexOf(".");
+ 
+    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) 
+    {
+        document.getElementById("mail").style.color="red";
+        //return false;
+    }
+ }
+ 
+function numberValidation(){
+    var a = document.getElementById('no').value;
+    if(a==""){
+        document.getElementById("no").style.color="red";
+       return false;
+    }
+    if(isNaN(a)){
+        document.getElementById("no").style.color="red";
+        document.getElementById("star").innerHTML="*Only Numbers are allowed";
+        return false;
+    }
+    if((a.length<10)){
+        document.getElementById("no").style.color="red";
+       return false;
+    }
+}
