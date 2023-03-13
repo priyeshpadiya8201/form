@@ -219,9 +219,7 @@ const local = ()=>
     
 }
 local();
-numberValidation();
-emailValidation();
-numberValidation();
+
 
 //image upload
 
@@ -247,52 +245,3 @@ uploadimg.onchange = function()
 
 }
 
-function nameValidation(){
-    var name = document.getElementById('nm').value;
-    if(name=="")
-    {
-         document.getElementById("nm").innerHTML;
-         return false;
-    }      
-    if(isNan(name))
-    {
-        document.getElementById("nm").innerHTML="only alphabetic value enter";
-        return false;
-
-    }
-    if(name.length)
-    {
-
-    }
-}
-
- function emailValidation() 
- {
-  var x = document.forms["myForm"]["email"].value;
- 
-  var atpos = x.indexOf("@");
-  var dotpos = x.lastIndexOf(".");
- 
-    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) 
-    {
-        document.getElementById("mail").style.color="red";
-        //return false;
-    }
- }
- 
-function numberValidation(){
-    var a = document.getElementById('no').value;
-    if(a==""){
-        document.getElementById("no").style.color="red";
-       return false;
-    }
-    if(isNaN(a)){
-        document.getElementById("no").style.color="red";
-        document.getElementById("star").innerHTML="*Only Numbers are allowed";
-        return false;
-    }
-    if((a.length<10)){
-        document.getElementById("no").style.color="red";
-       return false;
-    }
-}
